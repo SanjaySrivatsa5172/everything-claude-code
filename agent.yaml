@@ -226,6 +226,7 @@ commands:
   - skill-create
   - skill-health
   - test-coverage
+  - tirads
   - update-codemaps
   - update-docs
 tags:
