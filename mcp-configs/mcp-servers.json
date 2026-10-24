@@ -170,6 +170,14 @@
         "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY_HERE"
       },
       "description": "AI agent regression testing — snapshot behavior, detect regressions in tool calls and output quality. 8 tools: create_test, run_snapshot, run_check, list_tests, validate_skill, generate_skill_tests, run_skill_test, generate_visual_report. API key optional — deterministic checks (tool diff, output hash) work without it. Install: pip install \"evalview>=0.5,<1\""
+    },
+    "harnessrouter": {
+      "type": "http",
+      "url": "http://localhost:3000/api/harness/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_HARNESSROUTER_API_KEY_HERE"
+      },
+      "description": "HarnessRouter unified agent harness API — run tasks on Claude Code, Codex, Hermes, Gemini CLI, DeepSeek Harness, and 21 more harnesses through one OpenAI Responses-compatible API (Unified Harness Protocol). Requires HarnessRouter CE running at localhost:3000 (docker run -d --name harnessrouter -p 127.0.0.1:3000:3000 -v harnessrouter:/data harnessrouter/harnessrouter). Replace API key with one created in the Console API Keys page. Apache 2.0. See skills/harnessrouter/SKILL.md for full setup, harness_id reference, session management, file I/O, and product integration patterns."
     }
   },
   "_comments": {
