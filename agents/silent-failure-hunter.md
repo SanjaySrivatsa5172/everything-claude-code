@@ -1,6 +1,6 @@
 ---
 name: silent-failure-hunter
-description: Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation.
+description: Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation. Fold candidate — operates on the same diff as code-reviewer; consider running both checks in a single pass to avoid context loss at the handoff.
 model: sonnet
 tools: [Read, Grep, Glob, Bash]
 ---

@@ -1,6 +1,6 @@
 ---
 name: code-architect
-description: Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order.
+description: Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order. Fold candidate — when invoked immediately after code-explorer on the same codebase, consider running both in a single loop to preserve shared context.
 model: sonnet
 tools: [Read, Grep, Glob, Bash]
 ---
