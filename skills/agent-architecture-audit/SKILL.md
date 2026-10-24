@@ -103,6 +103,27 @@ Silent repair, retry, summarization, or recall agents run without explicit contr
 - Multiple agents modify the same output without coordination
 - Answers get "smoothed" or "corrected" by invisible layers
 
+### 6. Unjustified Subagent Spawning
+
+Subagents were added for organizational convenience, not because the single loop measurably degraded. This is the most common source of latency, context loss, and eval divergence in production agent systems.
+
+**Symptoms:**
+- Two agents chain on each other's output with no independent verification step
+- Multiple agents operate on the same data within the same logical turn
+- Response latency increased after a "modularization" refactor
+- Evals optimize per-agent but end-to-end quality is unmeasured or declining
+- Tool definitions across all active system prompts exceed 50
+- The same instruction appears in multiple agent system prompts with slight variations
+- A subagent was added to avoid restructuring a prompt conflict
+
+**Audit checks:**
+- List every active subagent. For each: DRI assigned? End-to-end evals exist? Called independently or always in a chain?
+- Count tool definitions per system prompt. Flag >30; escalate >50.
+- Identify pairs called together >80% of the time — fold candidates.
+- Confirm skills load progressively; knowledge bases accessed via search, not injected as context.
+
+See `skill: agent-fold-or-spawn` for the decision tree and migration path.
+
 ## Audit Workflow
 
 ### Phase 1: Scope
