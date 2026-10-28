@@ -554,7 +554,7 @@
       "dependencies": [
         "platform-configs"
       ],
-      "defaultInstall": false,
+      "defaultInstall": true,
       "cost": "medium",
       "stability": "stable"
     },
