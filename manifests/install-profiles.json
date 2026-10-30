@@ -33,7 +33,8 @@
         "workflow-quality",
         "framework-language",
         "database",
-        "orchestration"
+        "orchestration",
+        "agentic-patterns"
       ]
     },
     "security": {
