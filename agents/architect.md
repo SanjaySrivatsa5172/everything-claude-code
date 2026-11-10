@@ -180,6 +180,29 @@ When designing a new system or feature:
 - [ ] Backup and recovery strategy
 - [ ] Rollback plan documented
 
+## Agent Architecture Patterns
+
+When the system being designed uses agents or LLM loops, apply these principles before proposing a multi-agent topology.
+
+**Single loop first.** A single agent loop with progressive skill loading beats an orchestrator-subagent chain in most production cases. Multi-agent designs accrue coordination costs: context loss at handoffs, subagent sprawl, conflicting rules across system prompts, and latency (one team saw ~2× slower runtime after a needless split). Newer models handle more inside one loop; simpler designs migrate forward cheaply.
+
+**Valid multi-agent patterns:**
+- Generator-verifier: one agent produces, a separate agent with fresh context validates. Clean interface, independent inputs.
+- Parallel independent research: tasks truly do not share data, each returns a compact result, results are discardable.
+
+**Invalid reasons to spawn:**
+- The system prompt is getting long (use progressive skill loading instead)
+- The task has distinct "phases" (keep phases in one loop; the model plans and executes together)
+- Different domain experts feel cleaner as separate agents (domain = problem type; split by context independence, not domain)
+
+**Organizational model for agent systems:**
+- A small central team owns the system prompt, end-to-end evals, and vetting of new tools and skills.
+- Domain teams own their skills and evals as DRIs.
+- Tool definitions: group by user intent; cap at 30–50 per system prompt. Per-user permissions belong in tool implementations, returning plain refusals the model reads.
+- Skills for domain procedures; tools for hard limits and approval gates; code only for cheap, mechanical, always-needed loading.
+
+Load `skill: agent-fold-or-spawn` when making agent topology decisions.
+
 ## Red Flags
 
 Watch for these architectural anti-patterns:
@@ -191,6 +214,10 @@ Watch for these architectural anti-patterns:
 - **Magic**: Unclear, undocumented behavior
 - **Tight Coupling**: Components too dependent
 - **God Object**: One class/component does everything
+- **Subagent Sprawl**: Overlapping subagents with no DRI or evals
+- **Frankenprompt**: Every team appends rules; conflicting instructions, no consistent behavior
+- **Telephone Game**: Multi-agent chain where problem-type splits degrade fidelity at every handoff
+- **Localized Evals**: Teams optimize for subtask scores; aggregate quality is misleading
 
 ## Project-Specific Architecture (Example)
 

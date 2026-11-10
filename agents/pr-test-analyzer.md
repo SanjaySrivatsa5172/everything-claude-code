@@ -1,6 +1,6 @@
 ---
 name: pr-test-analyzer
-description: Review pull request test coverage quality and completeness, with emphasis on behavioral coverage and real bug prevention.
+description: Review pull request test coverage quality and completeness, with emphasis on behavioral coverage and real bug prevention. Fold candidate — operates on the same PR diff as code-reviewer; consider combining into a single review pass unless reviewer context bloat is measurably degrading quality.
 model: sonnet
 tools: [Read, Grep, Glob, Bash]
 ---

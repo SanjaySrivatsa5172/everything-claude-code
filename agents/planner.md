@@ -205,6 +205,27 @@ When the feature is large, break it into independently deliverable phases:
 
 Each phase should be mergeable independently. Avoid plans that require all phases to complete before anything works.
 
+## Agent Architecture Planning
+
+When a plan involves multiple agents or subagents, apply the fold-or-spawn discipline before committing to a multi-agent design. Load `skill: agent-fold-or-spawn` and answer the four-question decision tree.
+
+**Default rule: single loop first.** A single agent loop with progressive skill loading beats an orchestrator-subagent chain in most cases. Propose splitting only when evals confirm the single loop degrades.
+
+When spawning is justified:
+- Decompose by context isolation, not by problem type. Each subagent needs little from the rest and returns a compact, schema-conforming result.
+- Use the subagent-as-tool pattern. The main agent retains the conversation; subagents are called like tools, not handed full handoffs.
+- Cap tool definitions at 30–50 per system prompt. Group by user intent, not one per API.
+
+Add an "Agent Deployment" section to the plan when multi-agent patterns are proposed:
+
+```markdown
+## Agent Deployment
+- **Pattern**: [single-loop / generator-verifier / orchestrator-subagent]
+- **Justification**: [specific eval degradation observed, or parallel independence confirmed]
+- **Fold candidates**: [list any agents that could be merged]
+- **Eval baseline**: [10 golden examples defined at: path/to/evals]
+```
+
 ## Red Flags to Check
 
 - Large functions (>50 lines)
@@ -217,5 +238,8 @@ Each phase should be mergeable independently. Avoid plans that require all phase
 - Plans with no testing strategy
 - Steps without clear file paths
 - Phases that cannot be delivered independently
+- Multi-agent design proposed without eval evidence of single-loop degradation
+- Subagents that chain on each other's output (telephone-game degradation)
+- Tool count per system prompt exceeding 50
 
 **Remember**: A great plan is specific, actionable, and considers both the happy path and edge cases. The best plans enable confident, incremental implementation.

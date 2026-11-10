@@ -1,6 +1,6 @@
 ---
 name: code-explorer
-description: Deeply analyzes existing codebase features by tracing execution paths, mapping architecture layers, and documenting dependencies to inform new development.
+description: Deeply analyzes existing codebase features by tracing execution paths, mapping architecture layers, and documenting dependencies to inform new development. Fold candidate — when followed immediately by code-architect, consider keeping both in a single loop to avoid context loss at the handoff.
 model: sonnet
 tools: [Read, Grep, Glob]
 ---
