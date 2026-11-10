@@ -1,0 +1,40 @@
+{
+  "name": "harnessrouter",
+  "version": "1.0.0",
+  "description": "HarnessRouter integration for Claude Code — deploy, configure, and call HarnessRouter to route agent tasks to Claude Code, Codex, Hermes, and 23 other harnesses through one OpenAI Responses-compatible API (Unified Harness Protocol)",
+  "author": {
+    "name": "HarnessRouter",
+    "url": "https://github.com/HarnessRouter/harnessrouter"
+  },
+  "homepage": "https://harnessrouter.ai",
+  "repository": "https://github.com/HarnessRouter/harnessrouter",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-harness",
+    "harnessrouter",
+    "uhp",
+    "unified-harness-protocol",
+    "claude-code",
+    "codex",
+    "hermes",
+    "multi-harness",
+    "agent-infrastructure",
+    "openai-responses"
+  ],
+  "skills": [
+    "../../skills/harnessrouter/"
+  ],
+  "mcpServers": {
+    "harnessrouter": {
+      "type": "http",
+      "url": "http://localhost:3000/api/harness/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_HARNESSROUTER_API_KEY_HERE"
+      },
+      "description": "HarnessRouter agent task API — run tasks on Claude Code, Codex, Hermes, and 23 other harnesses via UHP. Requires HarnessRouter running at localhost:3000. Set Authorization header to your CE-issued API key. See skills/harnessrouter/SKILL.md for setup instructions."
+    }
+  },
+  "features": {
+    "skills": 1
+  }
+}
